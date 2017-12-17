@@ -1,0 +1,27 @@
+{
+  "name": "hwfn-react101",
+  "version": "0.1.0",
+  "description": "HWFN: React 101",
+  "scripts": {
+    "yolo": "git reset --hard && git clean -fd && git pull --force",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jason-whitted/hwfn-react101.git"
+  },
+  "author": "Jason Whitted <jason.whitted@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jason-whitted/hwfn-react101/issues"
+  },
+  "homepage": "https://github.com/jason-whitted/hwfn-react101#readme",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.0.17"
+  }
+}
