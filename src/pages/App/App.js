@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Character } from 'pages';
+import { Character, RealmStatus } from 'pages';
 
 class App extends Component {
   render() {
@@ -9,7 +9,7 @@ class App extends Component {
         <header>
           <h1>Battle.not</h1>
         </header>
-        <Character />
+        <RealmStatus />
       </div>
     );
   }
