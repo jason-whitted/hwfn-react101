@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { RealmStatus } from 'components/RealmStatus';
+
 const RealmStatusContent = () => (
   <div className="col-xs-12">
-    Realm Status
+    <RealmStatus />
   </div>
 );
 

@@ -9,7 +9,9 @@ class App extends Component {
         <header>
           <h1>Battle.not</h1>
         </header>
-        <RealmStatus />
+        <div className="row">
+          <RealmStatus />
+        </div>
       </div>
     );
   }
