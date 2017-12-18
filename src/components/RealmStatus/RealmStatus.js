@@ -26,9 +26,11 @@ class RealmStatus extends Component {
       console.error('RealmStatus', error);
     };
 
-    return apiProvider(request)
-      .then(success)
-      .catch(failure);
+    setTimeout(() => {
+      return apiProvider(request)
+        .then(success)
+        .catch(failure);
+    }, 3000);
   };
 
   onChange = event => {
@@ -44,7 +46,12 @@ class RealmStatus extends Component {
     return (
       <div>
         <TextField name="filter" label="Filter:" value={filter} onChange={this.onChange} />
-        <pre>{JSON.stringify(realms, null, 2)}</pre>
+        {!realms && 'Loading...'}
+        {realms && (
+          <div>
+            <pre>{JSON.stringify(realms, null, 2)}</pre>
+          </div>
+        )}
       </div>
     );
   };
