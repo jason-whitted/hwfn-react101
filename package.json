@@ -1,6 +1,6 @@
 {
   "name": "hwfn-react101",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HWFN: React 101",
   "scripts": {
     "yolo": "git reset --hard && git clean -fd && git pull --force",
