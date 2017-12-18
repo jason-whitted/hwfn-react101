@@ -17,7 +17,15 @@ const apiProvider = ({
     ...query,
   })}`;
   return fetch(requestUrl, options)
-    .then(r => r.json())
+    .then(resp => {
+      const { status, statusText } = resp;
+
+      if (status >= 400) {
+        throw new Error(`${status} - ${statusText}`);
+      }
+
+      return resp.json();
+    });
 };
 
 export default apiProvider;
