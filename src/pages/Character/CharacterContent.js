@@ -19,6 +19,9 @@ class CharacterContent extends Component {
       url: `/character/${realm}/${character}`,
       method: 'GET',
       data: null,
+      query: {
+        fields: 'guild',
+      },
     };
 
     const success = character => {
