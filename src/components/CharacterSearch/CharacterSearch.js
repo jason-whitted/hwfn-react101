@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { TextField } from 'common';
 
@@ -16,17 +17,19 @@ class CharacterSearch extends Component {
     this.setState({ [name]: value });
   };
 
-  submitHandler = event => {
-    console.log('CharacterSearch', 'submitHandler', event);
+  onSubmit = event => {
     event.preventDefault();
-  }
+
+    const { realm, character } = this.state;
+    this.props.submitHandler({ realm, character });
+  };
 
   render = () => {
     const { realm, character } = this.state;
 
     return (
       <div>
-        <form onSubmit={this.submitHandler}>
+        <form onSubmit={this.onSubmit}>
           <TextField name="realm" label="Realm:" value={realm} onChange={this.onChange} />
           <TextField name="character" label="Character:" value={character} onChange={this.onChange} />
           <button className="btn btn-primary">Submit</button>
@@ -35,5 +38,11 @@ class CharacterSearch extends Component {
     );
   };
 }
+
+CharacterSearch.propTypes = {
+  submitHandler: PropTypes.func.isRequired,
+};
+
+CharacterSearch.defaultProps = {};
 
 export default CharacterSearch;
