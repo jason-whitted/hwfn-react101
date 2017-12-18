@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <header>
-          <h1>Welcome to React</h1>
+          <h1>Welcome to React!</h1>
         </header>
-        <p>Hello World</p>
+        <p>Goodbye World</p>
       </div>
     );
   }
