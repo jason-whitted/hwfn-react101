@@ -26,11 +26,9 @@ class RealmStatus extends Component {
       console.error('RealmStatus', error);
     };
 
-    setTimeout(() => {
-      return apiProvider(request)
-        .then(success)
-        .catch(failure);
-    }, 3000);
+    return apiProvider(request)
+      .then(success)
+      .catch(failure);
   };
 
   onChange = event => {
