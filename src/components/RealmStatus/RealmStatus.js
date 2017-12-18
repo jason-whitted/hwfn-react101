@@ -11,7 +11,10 @@ class RealmStatus extends Component {
   }
 
   onChange = event => {
-
+    const { value } = event.target;
+    this.setState({
+      filter: value,
+    });
   };
 
   render = () => {
