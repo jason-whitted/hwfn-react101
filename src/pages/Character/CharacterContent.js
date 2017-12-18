@@ -1,21 +1,49 @@
 import React, { Component } from 'react';
 
+import { apiProvider } from 'common';
 import { Character } from 'components/Character';
 import { CharacterSearch } from 'components/CharacterSearch';
 
 class CharacterContent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      character: undefined,
+    };
+  }
+
   search = values => {
-    console.log('CharacterContent', 'search', values);
+    const { realm, character } = values;
+
+    const request = {
+      url: `/character/${realm}/${character}`,
+      method: 'GET',
+      data: null,
+    };
+
+    const success = character => {
+      this.setState({ character });
+    };
+
+    const failure = error => {
+      console.error('CharacterContent', 'search', error);
+    };
+
+    return apiProvider(request)
+      .then(success)
+      .catch(failure);
   };
 
   render = () => {
+    const { character } = this.state;
+
     return (
       <div>
         <div className="col-xs-12 col-lg-4">
           <CharacterSearch submitHandler={this.search} />
         </div>
         <div className="col-xs-12 col-lg-8">
-          <Character />
+          <Character character={character} />
         </div>
       </div>
     );
