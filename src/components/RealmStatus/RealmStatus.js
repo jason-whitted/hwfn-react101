@@ -58,11 +58,15 @@ class RealmStatus extends Component {
               </thead>
               <tbody>
                 {realms.map(({ status, name, type, queue }) => (
-                  <tr>
-                    <td>{status}</td>
+                  <tr key={name}>
+                    <td>
+                      <i className={`fa fa-fw fa-arrow-${status ? 'up' : 'down'}`} />
+                    </td>
                     <td>{name}</td>
                     <td>{type}</td>
-                    <td>{queue}</td>
+                    <td>
+                      <i className={`fa fa-fw fa-thumbs-${queue ? 'down' : 'o-up'}`} />
+                    </td>
                   </tr>
                 ))}
               </tbody>
