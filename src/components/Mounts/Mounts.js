@@ -37,8 +37,22 @@ class Mounts extends Component {
       .catch(failure);
   };
 
+  first = () => {
+  };
+
+  prev = () => {
+  };
+
+  next = () => {
+  };
+
+  last = () => {
+  };
+
   render = () => {
-    const { mounts } = this.state;
+    const { mounts, page } = this.state;
+    const pages = Math.ceil((mounts || []).length / 10);
+    const paginated = (mounts || []).slice(page * 10, page * 10 + 10)
 
     return (
       <div>
@@ -46,7 +60,14 @@ class Mounts extends Component {
         {!mounts && 'Loading...'}
         {mounts && (
           <div>
-            {mounts.map(m => <Mount key={m.itemId} {...m} />)}
+            {paginated.map(m => <Mount key={m.itemId} {...m} />)}
+            <div className="btn-group">
+              <button className="btn btn-default" onClick={this.first}>First</button>
+              <button className="btn btn-default" onClick={this.prev}>Prev</button>
+              <button className="btn btn-default">Page {page + 1}/{pages}</button>
+              <button className="btn btn-default" onClick={this.next}>Next</button>
+              <button className="btn btn-default" onClick={this.last}>Last</button>
+            </div>
           </div>
         )}
       </div>
