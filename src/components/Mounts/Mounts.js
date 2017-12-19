@@ -38,20 +38,26 @@ class Mounts extends Component {
   };
 
   first = () => {
+    this.setState({ page: 0 });
   };
 
   prev = () => {
+    this.setState({ page: Math.max(this.state.page - 1, 0) });
   };
 
   next = () => {
+    this.setState({ page: Math.min(this.state.page + 1, this.maxPages() - 1) })
   };
 
   last = () => {
+    this.setState({ page: this.maxPages() - 1 });
   };
+
+  maxPages = () => Math.ceil((this.state.mounts || []).length / 10);
 
   render = () => {
     const { mounts, page } = this.state;
-    const pages = Math.ceil((mounts || []).length / 10);
+    const pages = this.maxPages();
     const paginated = (mounts || []).slice(page * 10, page * 10 + 10)
 
     return (
@@ -64,7 +70,7 @@ class Mounts extends Component {
             <div className="btn-group">
               <button className="btn btn-default" onClick={this.first}>First</button>
               <button className="btn btn-default" onClick={this.prev}>Prev</button>
-              <button className="btn btn-default">Page {page + 1}/{pages}</button>
+              <button className="btn btn-default" disabled>Page {page + 1} / {pages}</button>
               <button className="btn btn-default" onClick={this.next}>Next</button>
               <button className="btn btn-default" onClick={this.last}>Last</button>
             </div>
