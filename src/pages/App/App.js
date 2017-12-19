@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Character, RealmStatus } from 'pages';
+import { Character, Mounts, RealmStatus } from 'pages';
 
 class App extends Component {
   render() {
@@ -10,7 +10,7 @@ class App extends Component {
           <h1>Battle.not</h1>
         </header>
         <div className="row">
-          <RealmStatus />
+          <Mounts />
         </div>
       </div>
     );
