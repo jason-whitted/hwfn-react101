@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { apiProvider, TextField } from 'common';
 
+import RealmList from './RealmList';
+
 class RealmStatus extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +42,7 @@ class RealmStatus extends Component {
 
   render = () => {
     const { filter, realms } = this.state;
+    const filtered = (realms || []).filter(r => r.name.toLowerCase().includes((filter || '').toLowerCase()));
 
     return (
       <div>
@@ -47,30 +50,7 @@ class RealmStatus extends Component {
         {!realms && 'Loading...'}
         {realms && (
           <div>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Status</th>
-                  <th>Realm</th>
-                  <th>Type</th>
-                  <th>Queue</th>
-                </tr>
-              </thead>
-              <tbody>
-                {realms.map(({ status, name, type, queue }) => (
-                  <tr key={name}>
-                    <td>
-                      <i className={`fa fa-fw fa-arrow-${status ? 'up' : 'down'}`} />
-                    </td>
-                    <td>{name}</td>
-                    <td>{type}</td>
-                    <td>
-                      <i className={`fa fa-fw fa-thumbs-${queue ? 'down' : 'o-up'}`} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <RealmList realms={filtered} />
             <pre>{JSON.stringify(realms, null, 2)}</pre>
           </div>
         )}
