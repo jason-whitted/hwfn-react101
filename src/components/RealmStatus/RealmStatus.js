@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { apiProvider, TextField } from 'common';
+import { withMessages } from 'hocs';
 
 import RealmList from './RealmList';
 
@@ -25,7 +27,7 @@ class RealmStatus extends Component {
     };
 
     const failure = error => {
-      console.error('RealmStatus', error);
+      this.props.addMessage({ text: error.message });
     };
 
     return apiProvider(request)
@@ -59,4 +61,6 @@ class RealmStatus extends Component {
   };
 }
 
-export default RealmStatus;
+export default withMessages()(
+  RealmStatus
+);
