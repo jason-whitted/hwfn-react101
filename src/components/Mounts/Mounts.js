@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { apiProvider } from 'common';
+import { withMessages } from 'hocs';
 
 import Mount from './Mount';
 
@@ -29,7 +31,7 @@ class Mounts extends Component {
     };
 
     const failure = error => {
-      console.error('Mounts', error);
+      this.props.addMessage({ text: error.message });
     };
 
     return apiProvider(request)
@@ -81,4 +83,13 @@ class Mounts extends Component {
   };
 }
 
-export default Mounts;
+Mounts.propTypes = {
+  // withMessages
+  addMessage: PropTypes.func,
+};
+
+Mounts.defaultProps = {};
+
+export default withMessages()(
+  Mounts
+);
