@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { apiProvider } from 'common';
+import { withMessages } from 'hocs';
 import { Character } from 'components/Character';
 import { CharacterSearch } from 'components/CharacterSearch';
 
@@ -29,7 +31,7 @@ class CharacterContent extends Component {
     };
 
     const failure = error => {
-      console.error('CharacterContent', 'search', error);
+      this.props.addMessage({ text: error.message });
     };
 
     return apiProvider(request)
@@ -53,4 +55,13 @@ class CharacterContent extends Component {
   };
 }
 
-export default CharacterContent;
+CharacterContent.propTypes = {
+  // withMessages
+  addMessage: PropTypes.func,
+};
+
+CharacterContent.defaultProps = {};
+
+export default withMessages()(
+  CharacterContent
+);
