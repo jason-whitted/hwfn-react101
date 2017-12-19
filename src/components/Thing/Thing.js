@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withTotal } from 'hocs';
+import { withMessages, withTotal } from 'hocs';
 
 class Thing extends Component {
+  componentWillMount = () => {
+    this.props.addMessage({
+      type: 'alert alert-success',
+      icon: 'fa fa-fw fa-thumbs-up',
+      text: `Created a Thing (by ${this.props.increment})`,
+    });
+  };
+
   click = event => {
     const { add, increment } = this.props;
     add(increment);
@@ -33,6 +41,8 @@ Thing.propTypes = {
   // withTotal
   add: PropTypes.func,
   total: PropTypes.number,
+  // withMessages
+  addMessage: PropTypes.func,
 }
 
 Thing.defaultProps = {
@@ -40,5 +50,7 @@ Thing.defaultProps = {
 };
 
 export default withTotal()(
-  Thing
+  withMessages()(
+    Thing
+  )
 );
