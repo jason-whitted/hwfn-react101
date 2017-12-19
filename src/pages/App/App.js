@@ -10,7 +10,9 @@ class App extends Component {
           <h1>Battle.not</h1>
         </header>
         <div className="row">
-          <Mounts />
+          {document.location.pathname === '/character' && <Character />}
+          {document.location.pathname === '/mounts' && <Mounts />}
+          {document.location.pathname === '/realmstatus' && <RealmStatus />}
         </div>
       </div>
     );
