@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 
 const withMessages = options => BaseComponent => {
   class WithMessages extends Component {
-    addMessage = ({ className = 'alert alert-danger', text }) => {
+    addMessage = ({
+      className = 'alert alert-danger',
+      icon = 'fa fa-fw fa-exclamation-circle',
+      text,
+    }) => {
       this.message = (
         <div className={className}>
+          {icon && <i className={icon} />}
           {text}
         </div>
       );
