@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Character, Mounts, RealmStatus } from 'pages';
 
+import Header from './Header';
+
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="container">
-          <header>
-            <h1>Battle.not</h1>
-          </header>
+          <Header />
           <div className="row">
             <Switch>
               <Route exact path="/" component={RealmStatus} />
