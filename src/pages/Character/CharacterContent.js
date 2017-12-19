@@ -5,6 +5,7 @@ import { apiProvider } from 'common';
 import { withMessages } from 'hocs';
 import { Character } from 'components/Character';
 import { CharacterSearch } from 'components/CharacterSearch';
+import { Thing } from 'components/Thing';
 
 class CharacterContent extends Component {
   constructor(props) {
@@ -46,6 +47,9 @@ class CharacterContent extends Component {
       <div>
         <div className="col-xs-12 col-lg-4">
           <CharacterSearch submitHandler={this.search} />
+          <Thing />
+          <Thing increment={2} />
+          <Thing increment={3} />
         </div>
         <div className="col-xs-12 col-lg-8">
           <Character character={character} />
