@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { Mounts } from 'components/Mounts';
+
 const MountsContent = () => (
   <div className="col-xs-12">
-    MountsContent
+    <Mounts />
   </div>
 );
 
