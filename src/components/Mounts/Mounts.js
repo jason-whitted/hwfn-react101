@@ -40,6 +40,19 @@ class Mounts extends Component {
     return (
       <div>
         <h1>Mounts</h1>
+        {!mounts && 'Loading...'}
+        {mounts && (
+          <div>
+            {mounts.map(({ name, icon, isFlying, isAquatic, isJumping, isGround }) => (
+              <div className="panel">
+                <div className="panel-body">
+                  <img src={`https://wow.zamimg.com/images/wow/icons/large/${icon}.jpg`}
+                       alt={name} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         <pre>{JSON.stringify(mounts, null, 2)}</pre>
       </div>
     );
