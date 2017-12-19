@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 
 import { Character, Mounts, RealmStatus } from 'pages';
 
+const route = () => {
+  switch(document.location.pathname) {
+    case '/character':
+      return <Character />;
+    case '/mounts':
+      return <Mounts />;
+    case '/':
+    case '/realmstatus':
+      return <RealmStatus />;
+    default:
+      return <div>404 - Uh oh o.O</div>;
+  }
+}
+
 class App extends Component {
   render() {
     return (
@@ -10,9 +24,7 @@ class App extends Component {
           <h1>Battle.not</h1>
         </header>
         <div className="row">
-          {document.location.pathname === '/character' && <Character />}
-          {document.location.pathname === '/mounts' && <Mounts />}
-          {document.location.pathname === '/realmstatus' && <RealmStatus />}
+          {route()}
         </div>
       </div>
     );
