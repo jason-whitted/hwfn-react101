@@ -8,7 +8,6 @@ const getMounts = ({ force = false } = {}) =>
   new Promise((resolve, reject) => {
     const state = getState();
 
-
     const load = !selectMountsIsLoading(state)
       && (force || selectMountsExpiration(state) < Date.now() || !selectMounts(state));
     if (!load) return resolve();
@@ -38,9 +37,11 @@ const getMounts = ({ force = false } = {}) =>
       throw error;
     };
 
-    return apiProvider(request)
-      .then(success)
-      .catch(failure);
+    return resolve(
+      apiProvider(request)
+        .then(success)
+        .catch(failure)
+    );
   });
 
 export default getMounts;
