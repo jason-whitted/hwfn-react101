@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { apiProvider } from 'common';
-import { withMessages } from 'hocs';
+import { withMessages, withTotal } from 'hocs';
 import { Character } from 'components/Character';
 import { CharacterSearch } from 'components/CharacterSearch';
 
@@ -32,6 +32,11 @@ class CharacterContent extends Component {
 
     const failure = error => {
       this.props.addMessage({ text: error.message });
+      this.props.add(1);
+      if(this.props.total >= 5) {
+        alert('You are wasting my apiKey usage.  Go away!');
+        document.location.assign('http://worldofwarcraft.com');
+      }
     };
 
     return apiProvider(request)
@@ -58,10 +63,15 @@ class CharacterContent extends Component {
 CharacterContent.propTypes = {
   // withMessages
   addMessage: PropTypes.func,
+  // withTotal
+  add: PropTypes.func,
+  total: PropTypes.number,
 };
 
 CharacterContent.defaultProps = {};
 
 export default withMessages()(
-  CharacterContent
+  withTotal()(
+    CharacterContent
+  )
 );
