@@ -12,8 +12,6 @@ const getMounts = ({ force = false } = {}) =>
       && (force || selectMountsExpiration(state) < Date.now() || !selectMounts(state));
     if (!load) return resolve();
 
-    // TODO: Add some logic for conditional loading
-
     dispatch({ type: CONST.MOUNTS_GET });
 
     const request = {
