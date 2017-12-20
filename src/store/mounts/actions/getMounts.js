@@ -1,10 +1,18 @@
 import { apiProvider } from 'common';
 
 import * as CONST from '../constants';
+import { selectMountsIsLoading, selectMountsExpiration, selectMounts } from '../selectors';
 
 const getMounts = ({ force = false } = {}) =>
   (dispatch, getState) =>
   new Promise((resolve, reject) => {
+    const state = getState();
+
+
+    const load = !selectMountsIsLoading(state)
+      && (force || selectMountsExpiration(state) < Date.now() || !selectMounts(state));
+    if (!load) return resolve();
+
     // TODO: Add some logic for conditional loading
 
     dispatch({ type: CONST.MOUNTS_GET });
