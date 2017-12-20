@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Realm = ({ status, name, type, queue }) => (
+import { withPi } from 'hocs';
+
+const Realm = ({ status, name, type, queue, pi }) => (
   <tr>
     <td>
       <i className={`fa fa-fw fa-arrow-${status ? 'up' : 'down'}`} />
     </td>
-    <td>{name}</td>
+    <td>{name} ({pi})</td>
     <td>{type}</td>
     <td>
       <i className={`fa fa-fw fa-thumbs-${queue ? 'down' : 'o-up'}`} />
@@ -19,8 +21,12 @@ Realm.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   queue: PropTypes.bool.isRequired,
+  // withPi
+  pi: PropTypes.number,
 };
 
 Realm.defaultProps = {};
 
-export default Realm;
+export default withPi({ times: 2 })(
+  Realm
+);
