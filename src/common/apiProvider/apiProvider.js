@@ -14,21 +14,26 @@ const apiProvider = ({
   data = undefined,
   options = {},
 }) => {
-  if(url === '/mount/') return Promise.resolve(mounts);
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, 1500);
+  })
+    .then(() => {
+      if(url === '/mount/') return Promise.resolve(mounts);
 
-  const requestUrl = `https://us.api.battle.net/wow${url}?${qs.stringify({
-    ...defaultQuery,
-    ...query,
-  })}`;
-  return fetch(requestUrl, options)
-    .then(resp => {
-      const { status, statusText } = resp;
+      const requestUrl = `https://us.api.battle.net/wow${url}?${qs.stringify({
+        ...defaultQuery,
+        ...query,
+      })}`;
+      return fetch(requestUrl, options)
+        .then(resp => {
+          const { status, statusText } = resp;
 
-      if (status >= 400) {
-        throw new Error(`${status} - ${statusText}`);
-      }
+          if (status >= 400) {
+            throw new Error(`${status} - ${statusText}`);
+          }
 
-      return resp.json();
+          return resp.json();
+        });
     });
 };
 
