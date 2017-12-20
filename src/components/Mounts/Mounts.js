@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { apiProvider } from 'common';
 import { withMessages } from 'hocs';
 
+import connectConfig from './connect';
 import Mount from './Mount';
 
 class Mounts extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      mounts: undefined,
-      page: 0,
-    };
+    this.state = { page: 0 };
   }
 
   componentWillMount = () => {
@@ -20,23 +19,11 @@ class Mounts extends Component {
   };
 
   load = () => {
-    const request = {
-      url: '/mount/',
-      method: 'GET',
-      data: null,
-    };
-
-    const success = ({ mounts }) => {
-      this.setState({ mounts });
-    };
-
     const failure = error => {
       this.props.addMessage({ text: error.message });
     };
 
-    return apiProvider(request)
-      .then(success)
-      .catch(failure);
+    return this.props.getMounts().catch(failure);
   };
 
   first = () => {
@@ -55,10 +42,11 @@ class Mounts extends Component {
     this.setState({ page: this.maxPages() - 1 });
   };
 
-  maxPages = () => Math.ceil((this.state.mounts || []).length / 10);
+  maxPages = () => Math.ceil((this.props.mounts || []).length / 10);
 
   render = () => {
-    const { mounts, page } = this.state;
+    const { mounts } = this.props;
+    const { page } = this.state;
     const pages = this.maxPages();
     const paginated = (mounts || []).slice(page * 10, page * 10 + 10)
 
@@ -86,10 +74,16 @@ class Mounts extends Component {
 Mounts.propTypes = {
   // withMessages
   addMessage: PropTypes.func,
+  // connect
+  getMounts: PropTypes.func,
+  loading: PropTypes.bool,
+  mounts: PropTypes.array,
 };
 
 Mounts.defaultProps = {};
 
-export default withMessages()(
-  Mounts
+export default connect(...connectConfig)(
+  withMessages()(
+    Mounts
+  )
 );
