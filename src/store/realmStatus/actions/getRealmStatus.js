@@ -1,12 +1,17 @@
 import { apiProvider } from 'common';
 
 import * as CONST from '../constants';
+import { selectRealmStatusIsLoading, selectRealmStatusShouldUpdate } from '../selectors';
 
 export default ({ force = false } = {}) =>
   (dispatch, getState) =>
   new Promise((resolve, reject) => {
 
-    // TODO: Implement logic for conditional loading
+    const state = getState();
+    const load = (!selectRealmStatusIsLoading(state) && (force || selectRealmStatusShouldUpdate(state)));
+    if(!load) {
+      return Promise.resolve();
+    }
 
     dispatch({ type: CONST.REALM_STATUS_GET });
 
