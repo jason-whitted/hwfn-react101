@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { apiProvider, TextField } from 'common';
 import { withMessages } from 'hocs';
 
+import connectConfig from './connect';
 import RealmList from './RealmList';
 
 class RealmStatus extends Component {
@@ -11,28 +13,19 @@ class RealmStatus extends Component {
     super(props);
     this.state = {
       filter: '',
-      realms: undefined,
     };
   }
 
   componentWillMount = () => {
-    const request = {
-      url: '/realm/status',
-      method: 'GET',
-      data: null,
-    };
+    this.load();
+  };
 
-    const success = ({ realms }) => {
-      this.setState({ realms });
-    };
-
+  load = () => {
     const failure = error => {
       this.props.addMessage({ text: error.message });
     };
 
-    return apiProvider(request)
-      .then(success)
-      .catch(failure);
+    this.props.getRealmStatus().catch(failure);
   };
 
   onChange = event => {
@@ -43,17 +36,18 @@ class RealmStatus extends Component {
   };
 
   render = () => {
-    const { filter, realms } = this.state;
-    const filtered = (realms || []).filter(r => r.name.toLowerCase().includes((filter || '').toLowerCase()));
+    const { statuses } = this.props;
+    const { filter } = this.state;
+    const filtered = (statuses || []).filter(r => r.name.toLowerCase().includes((filter || '').toLowerCase()));
 
     return (
       <div>
         <TextField name="filter" label="Filter:" value={filter} onChange={this.onChange} />
-        {!realms && 'Loading...'}
-        {realms && (
+        {!statuses && 'Loading...'}
+        {statuses && (
           <div>
             <RealmList realms={filtered} />
-            <pre>{JSON.stringify(realms, null, 2)}</pre>
+            <pre>{JSON.stringify(statuses, null, 2)}</pre>
           </div>
         )}
       </div>
@@ -61,6 +55,17 @@ class RealmStatus extends Component {
   };
 }
 
-export default withMessages()(
-  RealmStatus
+RealmStatus.propTypes = {
+  // connect
+  getRealmStatus: PropTypes.func,
+  loading: PropTypes.bool,
+  statuses: PropTypes.array,
+};
+
+RealmStatus.defaultProps = {};
+
+export default connect(...connectConfig)(
+  withMessages()(
+    RealmStatus
+  )
 );
